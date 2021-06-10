@@ -15,7 +15,6 @@ public class PlayerDrawing : MonoBehaviourPun
 
     //Hold_Brush();필요.
     public GameObject brush; // 브러쉬는 처음 부터 오른손에 넣어서 놓고 시작
-    LineRenderer b_stick;
     public float brushLength = 0.1f;
 
     //Inventory_Active();  필요 
@@ -39,9 +38,8 @@ public class PlayerDrawing : MonoBehaviourPun
     List<GameObject> u_obj = new List<GameObject>();
     public int p_counts = 1000;
     public GameObject empty_obj;
-    //===========
-    //개인 키보드. 
-    public GameObject keybord;
+
+    //그림을 그릴수 있는 상태인지 확인 하는 bool
     public bool IsPainter = false;
 
 
@@ -77,34 +75,22 @@ public class PlayerDrawing : MonoBehaviourPun
         brush.transform.position = rhand_R.transform.position + rhand_R.transform.forward * brushLength;
         brush.transform.SetParent(rhand_R.transform);//처음부터 자식으루 뒀엉,
         brush.SetActive(false);
-        //시작 때 키보드는 모두 꺼주기.
-        keybord.SetActive(false);
     }
 
     void Update()
     {
         if (photonView.IsMine)
         {
-            if (IsPainter)
-            {
-                //브러쉬를 쥐다.
-                Hold_Brush();
-                //팔레트등장 움직임에서 제어하긔 
-                Inventory_Active();
-                //그림을 그리다. 
-                DrawLine();
-                //그림을 지우다.
-                DeletLine();
-                //그림을 잡고 움직이다.
-                GrapLine();
-            }
-            else
-            {
-                //키보드 꺼내기
-                SetKeybord();
-                //타자 치는 기능. 
-                Typing();
-            }
+            //브러쉬를 쥐다.
+            Hold_Brush();
+            //팔레트등장 움직임에서 제어하긔 
+            Inventory_Active();
+            //그림을 그리다. 
+            DrawLine();
+            //그림을 지우다.
+            DeletLine();
+            //그림을 잡고 움직이다.
+            GrapLine();
         }
         Graping();
     }
@@ -189,14 +175,14 @@ public class PlayerDrawing : MonoBehaviourPun
 
         if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch))
         {
-                for (int i = 0; i < inventory.Length; i++)
-                {
-                    inventory[i].SetActive(false);
-                }
-                inventory[count % inventory.Length].SetActive(true);
-                count++;
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                inventory[i].SetActive(false);
+            }
+            inventory[count % inventory.Length].SetActive(true);
+            count++;
         }
-        
+
     }
 
     void DrawLine()
@@ -221,10 +207,10 @@ public class PlayerDrawing : MonoBehaviourPun
     {
         GameObject line = Instantiate(lineFactory);
         renderer = line.GetComponent<LineRenderer>();
-        
+
         lineColor = new Color(color.x, color.y, color.z);
         lineWidth = width;
-        
+
         Set_Line(renderer);//그릴 떄 전세 에팅해놓은 값으로 적용
 
         points.Add(popo);
@@ -296,10 +282,10 @@ public class PlayerDrawing : MonoBehaviourPun
             if (coll.Length > 0 && coll[0].gameObject.CompareTag("Line"))
             {
                 print("지울수 있는 선있음");
-                if(OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch))
+                if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch))
                 {
                     //라인 지워줌 Rpc로 전달~
-                    photonView.RPC("Erase", RpcTarget.All,coll[0].GetComponent<LineInfo>().number);
+                    photonView.RPC("Erase", RpcTarget.All, coll[0].GetComponent<LineInfo>().number);
                 }
             }
         }
@@ -308,7 +294,7 @@ public class PlayerDrawing : MonoBehaviourPun
     void Erase(int lineindex)
     {
         GameObject lineobj = GameManager.instance.GetLine(lineindex);
-        if (lineobj != null)  Destroy(lineobj);
+        if (lineobj != null) Destroy(lineobj);
     }
 
 
@@ -319,10 +305,10 @@ public class PlayerDrawing : MonoBehaviourPun
             if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
             {
                 Collider[] coll = Physics.OverlapSphere(lhand_L.transform.position, 0.1f);
-                if(coll.Length>0&&coll[0].gameObject.CompareTag("Line"))
+                if (coll.Length > 0 && coll[0].gameObject.CompareTag("Line"))
                 {
                     print("선잡았따!");
-                    photonView.RPC("Empower",RpcTarget.All, coll[0].gameObject.GetComponent<LineInfo>().number);
+                    photonView.RPC("Empower", RpcTarget.All, coll[0].gameObject.GetComponent<LineInfo>().number);
                 }
             }
         }
@@ -407,34 +393,5 @@ public class PlayerDrawing : MonoBehaviourPun
 
         obj.transform.SetParent(null);
         obj = null;
-    }
-    //============================
-
-    void SetKeybord()
-    {
-        if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch))
-        {
-            if (keybord.activeSelf != true)
-            {
-                keybord.SetActive(true);
-            }
-            if (keybord.activeSelf == true)
-            {
-                keybord.SetActive(false);
-            }
-        }
-        //if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
-        //{
-        //    keybord.SetActive(false);
-        //}        
-    }
-
-    void Typing()
-    {
-        if (keybord.activeSelf==true)
-        {
-            ////   
-            if(Input.GetKeyDown(KeyCode.Alpha1))print(" 키누른다,");
-        }        
     }
 }
