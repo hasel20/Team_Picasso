@@ -273,16 +273,18 @@ public class PlayerDrawing : MonoBehaviourPun
 
     void DeletLine()
     {
+        //그림 그리기 버튼 (오른쪽 인덱스)을 안 누르고 있을때
         if (!OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch))
         {
+            //오른손의 구형태로 충돌되는 콜리더가 있으면 
             Collider[] coll = Physics.OverlapSphere(rhand_R.transform.position, 0.1f);
-            if (coll.Length > 0)
+            if (coll.Length > 0 && coll[0].gameObject.CompareTag("Line"))
             {
-                if(OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch)&&
-                    coll[0].gameObject.CompareTag("Line"))
+                print("지울수 있는 선있음");
+                if(OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch))
                 {
                     //라인 지워줌 Rpc로 전달~
-                    photonView.RPC("Erase",RpcTarget.All,coll[0].GetComponent<LineInfo>().number);
+                    photonView.RPC("Erase", RpcTarget.All,coll[0].GetComponent<LineInfo>().number);
                 }
             }
         }
@@ -390,14 +392,5 @@ public class PlayerDrawing : MonoBehaviourPun
 
         obj.transform.SetParent(null);
         obj = null;
-    }
-
-    [PunRPC]
-    void TellDrop(GameObject dropline,LineRenderer liren)
-    {
-        MeshCollider ms = dropline.GetComponent<MeshCollider>();
-        Mesh mesh = new Mesh();
-        liren.BakeMesh(mesh, true);
-        ms.sharedMesh = mesh;
     }
 }

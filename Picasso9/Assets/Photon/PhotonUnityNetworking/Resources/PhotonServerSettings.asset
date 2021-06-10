@@ -37,6 +37,7 @@ MonoBehaviour:
   - Curr_Draw
   - DestroyRpc
   - DestroySpaceship
+  - Empower
   - End_Draw
   - Erase
   - Fire
@@ -45,10 +46,9 @@ MonoBehaviour:
   - RpcFire2
   - RpcOnDamaged
   - RpcSetChatValue
+  - SetOff
   - Start_Draw
   - TellDrop
-  - Empower
-  - SetOff
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -12,6 +12,6 @@ public class LineInfo : MonoBehaviour
 
     private void Start()
     {
-        //number = CountingNumber.instance.AddLine(this);
+        number = GameManager.instance.AddLine(this);
     }
 }
