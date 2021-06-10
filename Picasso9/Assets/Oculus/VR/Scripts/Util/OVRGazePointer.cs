@@ -43,10 +43,6 @@ public class OVRGazePointer : OVRCursor {
     /// The gaze ray.
     /// </summary>
     public Transform rayTransform;
-    public Transform LrayTransform;
-    public Transform RrayTransform;
-
-    public OVRInput.Button LayButton;
 
     /// <summary>
     /// Is gaze pointer current visible
@@ -145,7 +141,6 @@ public class OVRGazePointer : OVRCursor {
 
     public void Awake()
     {
-        if (rayTransform == null) { rayTransform = RrayTransform; }
         currentScale = 1;
         // Only allow one instance at runtime.
         if (_instance != null && _instance != this)
@@ -164,7 +159,7 @@ public class OVRGazePointer : OVRCursor {
     void Update ()
     {
 		if (rayTransform == null && Camera.main != null)
-            rayTransform = Camera.main.transform;
+			rayTransform = Camera.main.transform;
 
         // Move the gaze cursor to keep it in the middle of the view
         transform.position = rayTransform.position + rayTransform.forward * depth;
@@ -178,8 +173,6 @@ public class OVRGazePointer : OVRCursor {
         {
             Show();
         }
-
-        ChangeRay();
     }
 
     /// <summary>
@@ -277,17 +270,4 @@ public class OVRGazePointer : OVRCursor {
         hidden = false;
     }
 
-    void ChangeRay()
-    {
-        if (OVRInput.GetDown(LayButton, OVRInput.Controller.LTouch))
-        {
-            rayTransform = RrayTransform;
-            return;
-        }
-        else if (OVRInput.GetDown(LayButton, OVRInput.Controller.RTouch))
-        {
-            rayTransform = LrayTransform;
-            return;
-        }
-    }
 }

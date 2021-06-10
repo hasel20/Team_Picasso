@@ -48,7 +48,6 @@ MonoBehaviour:
   - RpcSetChatValue
   - SetOff
   - Start_Draw
-  - TellDrop
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

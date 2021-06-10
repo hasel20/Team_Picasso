@@ -417,7 +417,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 238633266}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9825437
+  m_Size: 0.9800557
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8972,9 +8972,6 @@ MonoBehaviour:
   depthScaleMultiplier: 0.03
   matchNormalOnPhysicsColliders: 0
   rayTransform: {fileID: 0}
-  LrayTransform: {fileID: 0}
-  RrayTransform: {fileID: 0}
-  LayButton: 0
 --- !u!4 &1433770663
 Transform:
   m_ObjectHideFlags: 0
@@ -17569,9 +17566,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayTransform: {fileID: 0}
-  LrayTransform: {fileID: 9172743551513601771}
-  RrayTransform: {fileID: 9172743551513596655}
-  LayButton: 32768
   m_Cursor: {fileID: 9070771993691160296}
   joyPadClickButton: 2097152
   gazeClickKey: 32
@@ -26781,9 +26775,6 @@ MonoBehaviour:
   depthScaleMultiplier: 0.03
   matchNormalOnPhysicsColliders: 0
   rayTransform: {fileID: 0}
-  LrayTransform: {fileID: 9172743551513601771}
-  RrayTransform: {fileID: 9172743551513596655}
-  LayButton: 32768
 --- !u!4 &9070771993691160297
 Transform:
   m_ObjectHideFlags: 0
