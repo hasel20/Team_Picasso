@@ -39,7 +39,10 @@ public class PlayerDrawing : MonoBehaviourPun
     List<GameObject> u_obj = new List<GameObject>();
     public int p_counts = 1000;
     public GameObject empty_obj;
-
+    //===========
+    //개인 키보드. 
+    public GameObject keybord;
+    public bool IsPainter = false;
 
 
     void Start()
@@ -74,22 +77,34 @@ public class PlayerDrawing : MonoBehaviourPun
         brush.transform.position = rhand_R.transform.position + rhand_R.transform.forward * brushLength;
         brush.transform.SetParent(rhand_R.transform);//처음부터 자식으루 뒀엉,
         brush.SetActive(false);
+        //시작 때 키보드는 모두 꺼주기.
+        keybord.SetActive(false);
     }
 
     void Update()
     {
         if (photonView.IsMine)
         {
-            //브러쉬를 쥐다.
-            Hold_Brush();
-            //팔레트등장 움직임에서 제어하긔 
-            Inventory_Active();
-            //그림을 그리다. 
-            DrawLine();
-            //그림을 지우다.
-            DeletLine();
-            //그림을 잡고 움직이다.
-            GrapLine();
+            if (IsPainter)
+            {
+                //브러쉬를 쥐다.
+                Hold_Brush();
+                //팔레트등장 움직임에서 제어하긔 
+                Inventory_Active();
+                //그림을 그리다. 
+                DrawLine();
+                //그림을 지우다.
+                DeletLine();
+                //그림을 잡고 움직이다.
+                GrapLine();
+            }
+            else
+            {
+                //키보드 꺼내기
+                SetKeybord();
+                //타자 치는 기능. 
+                Typing();
+            }
         }
         Graping();
     }
@@ -392,5 +407,24 @@ public class PlayerDrawing : MonoBehaviourPun
 
         obj.transform.SetParent(null);
         obj = null;
+    }
+    //============================
+
+    void SetKeybord()
+    {
+        if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch))
+        {
+            if (!keybord.activeSelf) keybord.SetActive(true);
+            if (keybord.activeSelf) keybord.SetActive(false);
+        }
+    }
+
+    void Typing()
+    {
+        if (keybord.activeSelf)
+        {
+            ////   
+            if(Input.GetKeyDown(KeyCode.Alpha1))print(" 키누른다,");
+        }        
     }
 }

@@ -417,7 +417,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 238633266}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9800557
+  m_Size: 0.5137872
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -17565,7 +17565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1a9a1d119a5944aacfb87d1ec283a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayTransform: {fileID: 0}
+  rayTransform: {fileID: 9172743551513596655}
   m_Cursor: {fileID: 9070771993691160296}
   joyPadClickButton: 2097152
   gazeClickKey: 32
