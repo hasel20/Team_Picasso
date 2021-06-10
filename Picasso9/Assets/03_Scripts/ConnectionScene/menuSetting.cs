@@ -22,6 +22,7 @@ public class menuSetting : MonoBehaviour
     [SerializeField]
     [Tooltip("키보드 상단의 인풋필드")]
     public TMPro.TMP_InputField KeyText; //키보드가 쓴 글씨 담는 그릇
+    [SerializeField]
     [Tooltip("레이로 쏜 인풋필드 적용 대상, 미리 채워두지 말것")]
     private InputField Selected; //키보드에 있는 내용을 옮길 그릇
 
@@ -270,7 +271,7 @@ public class menuSetting : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("inputField"))
+            if (hit.transform.gameObject.CompareTag("inputField"))
             {
                 Debug.Log("인풋필드 발견");
                 if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, CurrCont))

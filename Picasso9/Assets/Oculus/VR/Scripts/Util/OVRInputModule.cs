@@ -22,11 +22,15 @@ namespace UnityEngine.EventSystems
     {
         [Tooltip("Object which points with Z axis. E.g. CentreEyeAnchor from OVRCameraRig")]
         public Transform rayTransform;
+        public Transform LrayTransform;
+        public Transform RrayTransform;
+
+        public OVRInput.Button LayButton;
 
         public OVRCursor m_Cursor;
 
         [Tooltip("Gamepad button to act as gaze click")]
-        public OVRInput.Button joyPadClickButton = OVRInput.Button.One;
+        public OVRInput.Button joyPadClickButton;
 
         [Tooltip("Keyboard button to act as gaze click")]
         public KeyCode gazeClickKey = KeyCode.Space;
@@ -63,8 +67,51 @@ namespace UnityEngine.EventSystems
         [SerializeField]
         private float m_SpherecastRadius = 1.0f;
 
+        protected override void Awake()
+        {
+            if(rayTransform == null)
+            {
+                if(RrayTransform != null)
+                {
+                    rayTransform = RrayTransform;
+                    return;
+                }
+                else
+                {
+                    if(LrayTransform != null)
+                    {
+                        rayTransform = LrayTransform;
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+        }
 
-
+        private void Update()
+        {
+            if (OVRInput.GetDown(LayButton, OVRInput.Controller.LTouch))
+            {
+                if (RrayTransform != null)
+                {
+                    rayTransform = RrayTransform;
+                    joyPadClickButton = OVRInput.Button.SecondaryIndexTrigger;
+                    return;
+                }
+            }
+            else if (OVRInput.GetDown(LayButton, OVRInput.Controller.RTouch))
+            {
+                if (LrayTransform != null)
+                {
+                    rayTransform = LrayTransform;
+                    joyPadClickButton = OVRInput.Button.PrimaryIndexTrigger;
+                    return;
+                }
+            }
+        }
 
 
         // The following region contains code exactly the same as the implementation
@@ -79,7 +126,7 @@ namespace UnityEngine.EventSystems
         // ProcessMouseEvent
         // UseMouse
         #region StandaloneInputModule code
-         private float m_NextAction;
+        private float m_NextAction;
 
         private Vector2 m_LastMousePosition;
         private Vector2 m_MousePosition;
