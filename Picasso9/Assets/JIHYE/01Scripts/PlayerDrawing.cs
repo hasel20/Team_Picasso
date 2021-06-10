@@ -414,14 +414,24 @@ public class PlayerDrawing : MonoBehaviourPun
     {
         if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch))
         {
-            if (!keybord.activeSelf) keybord.SetActive(true);
-            if (keybord.activeSelf) keybord.SetActive(false);
+            if (keybord.activeSelf != true)
+            {
+                keybord.SetActive(true);
+            }
+            if (keybord.activeSelf == true)
+            {
+                keybord.SetActive(false);
+            }
         }
+        //if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
+        //{
+        //    keybord.SetActive(false);
+        //}        
     }
 
     void Typing()
     {
-        if (keybord.activeSelf)
+        if (keybord.activeSelf==true)
         {
             ////   
             if(Input.GetKeyDown(KeyCode.Alpha1))print(" 키누른다,");
