@@ -292,10 +292,12 @@ public class menuSetting : MonoBehaviour
     public void SendMessage()
     {
         if (Selected == null) return;
-
-        KeyText.text = KeyText.text.Substring(0, KeyText.text.Length - 1);
-        Selected.text = KeyText.text;
-        return;
+        else
+        {
+            KeyText.text = KeyText.text.Substring(0, KeyText.text.Length - 1);
+            Selected.text = KeyText.text;
+            return;
+        }
     }
     public void OnClickChat()
     {
