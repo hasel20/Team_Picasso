@@ -6,9 +6,11 @@ public class PaintingStage : MonoBehaviour
 {
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.name.Contains("Player_Draw"))
+        //if (other.gameObject.name.Contains("Player_Draw"))
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            other.GetComponent<PlayerDrawing>().IsPainter = true;
+            PlayerDrawing pd = other.GetComponent<PlayerDrawing>();
+            if (pd != null) pd.IsPainter = true;
         }
         
     }

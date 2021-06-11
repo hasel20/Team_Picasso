@@ -24,9 +24,13 @@ public class RoleSet : MonoBehaviourPun
     }
     public Role role = Role.answerer;
 
+    public int playerNumber;
+
     void Start()
     {
-        GameManager.instance.AddPlayer(this.gameObject);        
+        //playerNumber = GameManager.instance.AddPlayer(this.gameObject);
+        GameManager.instance.AddPlayer(this.gameObject);
+        A_RoleAlim();
     }
 
     void Update()
@@ -34,86 +38,66 @@ public class RoleSet : MonoBehaviourPun
         //내꺼일떄 
         if (photonView.IsMine)
         {
-            AlimText();
             //관중이면!
             if (role == Role.answerer)
             {
                 KeybordSet();
-                //photonView.RPC("KeybordSet",RpcTarget.All);
             }
-            //else if (role == Role.painter)
-            //{
-            //    key = false;
-            //    keybord.SetActive(false);
-            //    malletL.SetActive(false);
-            //    malletR.SetActive(false);
-            //}
+            else//painter이면 채팅치면 안댐! 
+            {
+                photonView.RPC("Keyonoff", RpcTarget.All, false);
+            }
         }
 
     }
-    void AlimText()
+    
+    
+    //게임 롤 바뀔떄. 문구 지정 해주느 함수 
+    public void P_RoleAlim(string ques)
     {
-        if (alim != null)
-        {
-            if (role == Role.painter)
-            {
-                List<string> que = GameManager.instance.gameQuestion;
-                alim.text = "[ " + que[Random.Range(0, que.Count)] + " ] 그림을 그려보세요!";
-                alim.color = Color.blue;
-            }
-            else
-            {
-                alim.text = "그림을 맞춰봐요!";
-                alim.color = Color.black;
-            }
-        }
+        alim.text = "[ " + ques + " ] 그림을 그려보세요!";
+        alim.color = Color.blue;
+    }
+    public void A_RoleAlim()
+    {
+        role = Role.answerer;
+        alim.text = "그림을 맞춰봐요!";
+        alim.color = Color.black;
     }
 
-    //[PunRPC]
+
+
     void KeybordSet()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Two,OVRInput.Controller.LTouch))
+        if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
         {
             key = !key;
         }
-        keybord.SetActive(key);
-        malletL.SetActive(key);
-        malletR.SetActive(key);
+        photonView.RPC("Keyonoff",RpcTarget.All,key);
+    }
+    [PunRPC]
+    void Keyonoff(bool ke)
+    {
+        keybord.SetActive(ke);
+        malletL.SetActive(ke);
+        malletR.SetActive(ke);        
     }
 
-
-    //public void SetChat(string an)
-    //{
-    //    answer.text = an;
-    //}
-
+    //키보드 센드누르면 지ㅣㄴ행하는 함수 ? 
     public void Typing()
     {
         KeyText.text = KeyText.text.Substring(0, KeyText.text.Length - 1);
-        photonView.RPC("Ping",RpcTarget.All, KeyText.text);
+        photonView.RPC("RpcTyping", RpcTarget.All, KeyText.text);
+        if (GameManager.instance.ChackAnswer(KeyText.text))
+        {
+            print("정답입니다~ !");
+            GameManager.instance.ResetTurn();
+        }
     }
 
     [PunRPC]
-    void Ping(string plz)
+    void RpcTyping(string plz)
     {
         answer.text = plz;
     }
-
-    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    if (stream.IsWriting)
-    //    {
-    //        stream.SendNext(answer.text);
-    //    }
-
-    //    if (stream.IsReading)
-    //    {
-    //        otherAnswer.text = (string)stream.ReceiveNext();
-    //    }
-    //}
-
-    
-
-
-
 }

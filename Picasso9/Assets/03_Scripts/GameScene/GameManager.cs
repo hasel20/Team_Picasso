@@ -5,59 +5,85 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class GameManager : MonoBehaviourPunCallbacks
+public class GameManager : MonoBehaviourPun
 {
     public static GameManager instance;
 
     public List<string> gameQuestion;
+     public string nowQ;
 
     public List<GameObject> players = new List<GameObject>();
+   // public List<GameObject> player_rpc = new List<GameObject>();
+    RoleSet rs;
 
     public List<LineInfo> Lines = new List<LineInfo>();
 
     //내 Player만 저장
     public GameObject Master;
 
-    bool turnOver = false;
+    bool turnOver = true;
+    int index;
+    int qindex;
 
     private void Awake()
     {
         if (this != null) instance = this;
 
         Master = PhotonNetwork.Instantiate("Player_Draw", new Vector3(0, 1.5f, 0), Quaternion.identity); //내 Player 생성
+        
     }
     private void Update()
     {
-        //턴제로 들어온 player를 랜덤으로 돌려서 한명씩 그림 그리고 그림 다 그리면 끝!
-        //if (turnOver)
-        //{
-        //    Randoms(players);
-        //}               
+        if (PhotonNetwork.IsMasterClient)
+        {
+            //턴제로 들어온 player를 랜덤으로 돌려서 한명씩 그림 그리고 그림 다 그리면 끝!
+            if (turnOver && players.Count >= 2)
+            {
+                turnOver = false;
+                print("start turn");
+                //Randoms(Random.Range(0, players.Count));
+                int a = Random.Range(0, players.Count);
+                print(a);
+                photonView.RPC("Randoms", RpcTarget.All, 
+                    players[a].GetComponent<PhotonView>().ViewID, Random.Range(0, gameQuestion.Count));
+            }
+        }
     }
 
-    void Randoms(List<GameObject> lili)
+    
+    [PunRPC]
+    void Randoms(int randoms,int aa)
     {
-        turnOver = false;
-        for (int i = 0; i < 100; i++)
+        if(rs != null)
         {
-            GameObject a = lili[Random.Range(0, lili.Count)];
-            GameObject b = lili[Random.Range(0, lili.Count)];
-
-            GameObject xx = a;
-            a = b;
-            b = xx;
+            rs.A_RoleAlim();
+            rs = null;
         }
+
+        index = randoms ;
+
+        nowQ = gameQuestion[aa];
+
         StartCoroutine(SettingRole());
     }
 
     IEnumerator SettingRole()
     {
-        players[0].GetComponent<RoleSet>().role = RoleSet.Role.painter;
-        yield return new WaitForSeconds(60);
-        players[0].GetComponent<RoleSet>().role = RoleSet.Role.answerer;
+        rs = GetPlayer(index).GetComponent<RoleSet>();
+        rs.role = RoleSet.Role.painter;
+        //nowQ = gameQuestion[Random.Range(0,gameQuestion.Count)];
+        //photonView.RPC("nowQs", RpcTarget.All, gameQuestion[qindex]);
+        rs.P_RoleAlim(nowQ);
+        yield return new WaitForSeconds(3);
+        
         turnOver = true;
     }
 
+    //[PunRPC]
+    //void nowQs(string q)
+    //{
+    //    nowQ = q;
+    //}
     //생성된 라인을 리스트업 하고 그 순번 알려주는 함수
     public int AddLine(LineInfo line)
     {
@@ -81,14 +107,37 @@ public class GameManager : MonoBehaviourPunCallbacks
     //게임 시작 할떄 플레이어 리스트 만들긔 
     public void AddPlayer(GameObject person)
     {
-        players.Add(person);
+        //if (PhotonNetwork.IsMasterClient)
+        {
+            players.Add(person);
+        }
+        //return players.Count;
     }
 
-    ////정답 치는 란 확인 하긔.
-    //public void OnClickSend()
-    //{
-    //    RoleSet rs = Master.GetComponent<RoleSet>();
-        
-    //    rs.SetChat("sd");
-    //}
+    public GameObject GetPlayer(int id)
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            PhotonView pv = players[i].GetComponent<PhotonView>();
+            if (pv.ViewID== id)
+            {
+                return players[i].gameObject;
+            }
+        }
+        return null;
+    }
+
+
+    public bool ChackAnswer(string ans)
+    {
+        return ans == nowQ;
+    }
+
+    public void ResetTurn()
+    {
+        StopCoroutine(SettingRole());
+        rs.A_RoleAlim();
+        rs = null;
+        turnOver = true;
+    }
 }
