@@ -48,6 +48,9 @@ MonoBehaviour:
   - RpcSetChatValue
   - SetOff
   - Start_Draw
+  - ping
+  - Ping
+  - KeybordSet
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

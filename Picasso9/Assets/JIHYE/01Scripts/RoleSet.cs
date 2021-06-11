@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class RoleSet : MonoBehaviourPun
 {
     public Text alim;
 
+    public TMPro.TMP_InputField KeyText; //키보드가 쓴 글씨 담는 그릇
+    public Text answer;
+    //Text otherAnswer;
     public GameObject keybord;
+    public GameObject malletL;
+    public GameObject malletR;
 
     bool key;
     public enum Role
@@ -25,24 +31,25 @@ public class RoleSet : MonoBehaviourPun
 
     void Update()
     {
-        AlimText();
         //내꺼일떄 
         if (photonView.IsMine)
         {
-            //관중이면
+            AlimText();
+            //관중이면!
             if (role == Role.answerer)
             {
                 KeybordSet();
-                Typing();
+                //photonView.RPC("KeybordSet",RpcTarget.All);
             }
             //else if (role == Role.painter)
             //{
             //    key = false;
             //    keybord.SetActive(false);
-
-
+            //    malletL.SetActive(false);
+            //    malletR.SetActive(false);
             //}
         }
+
     }
     void AlimText()
     {
@@ -62,21 +69,51 @@ public class RoleSet : MonoBehaviourPun
         }
     }
 
+    //[PunRPC]
     void KeybordSet()
     {
         if (OVRInput.GetDown(OVRInput.Button.Two,OVRInput.Controller.LTouch))
         {
             key = !key;
-            //print(key);
         }
         keybord.SetActive(key);
+        malletL.SetActive(key);
+        malletR.SetActive(key);
     }
 
-    void Typing()
+
+    //public void SetChat(string an)
+    //{
+    //    answer.text = an;
+    //}
+
+    public void Typing()
     {
-        if (key)
-        {
-            //키보드로 모두에게 알려줘야함.
-        }
+        KeyText.text = KeyText.text.Substring(0, KeyText.text.Length - 1);
+        photonView.RPC("Ping",RpcTarget.All, KeyText.text);
     }
+
+    [PunRPC]
+    void Ping(string plz)
+    {
+        answer.text = plz;
+    }
+
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        stream.SendNext(answer.text);
+    //    }
+
+    //    if (stream.IsReading)
+    //    {
+    //        otherAnswer.text = (string)stream.ReceiveNext();
+    //    }
+    //}
+
+    
+
+
+
 }

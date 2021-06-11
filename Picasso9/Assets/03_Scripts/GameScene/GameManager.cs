@@ -84,5 +84,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         players.Add(person);
     }
 
-
+    ////정답 치는 란 확인 하긔.
+    //public void OnClickSend()
+    //{
+    //    RoleSet rs = Master.GetComponent<RoleSet>();
+        
+    //    rs.SetChat("sd");
+    //}
 }

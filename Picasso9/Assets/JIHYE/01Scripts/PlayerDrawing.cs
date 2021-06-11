@@ -79,21 +79,24 @@ public class PlayerDrawing : MonoBehaviourPun
 
     void Update()
     {
-        if (photonView.IsMine)
+        if (IsPainter)
         {
-            //브러쉬를 쥐다.
-            Hold_Brush();
-            //팔레트등장 움직임에서 제어하긔 
-            Inventory_Active();
-            //그림을 그리다. 
-            DrawLine();
-            //그림을 지우다.
-            DeletLine();
-            //그림을 잡고 움직이다.
-            GrapLine();
+            if (photonView.IsMine)
+            {
+                //브러쉬를 쥐다.
+                Hold_Brush();
+                //팔레트등장 움직임에서 제어하긔 
+                Inventory_Active();
+                //그림을 그리다. 
+                DrawLine();
+                //그림을 지우다.
+                DeletLine();
+                //그림을 잡고 움직이다.
+                GrapLine();
+            }
+            Graping();
         }
-        Graping();
-    }
+    }        
 
     void Hold_Brush()
     {
