@@ -9,6 +9,8 @@ public class PlayerScore : MonoBehaviourPun
 {
     public int score;
     public Text ScoreTx;
+
+    public int round_end_score = 15;
     void Start()
     {
         
@@ -16,7 +18,10 @@ public class PlayerScore : MonoBehaviourPun
 
     void Update()
     {
-        
+        if (score >= round_end_score)
+        {
+            GameManager.instance.RoundEnd(GetComponent<PhotonView>().ViewID);
+        }
     }
 
     public void AddScore(int add)
