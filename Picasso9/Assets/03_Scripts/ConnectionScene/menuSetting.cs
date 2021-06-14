@@ -7,6 +7,12 @@ using UnityEngine.EventSystems;
 
 public class menuSetting : MonoBehaviour
 {
+    [SerializeField]
+    public bool Disable_LeftMenu;
+    [SerializeField]
+    public bool Disable_RightMenu;
+    [SerializeField]
+    public bool Disable_Keyboard;
     [Tooltip("왼손에 붙이는 메뉴 캔버스")]
     public GameObject LeftMenu; //왼손 메뉴창
     [Tooltip("오른손에 붙이는 메뉴 캔버스")]
@@ -22,7 +28,6 @@ public class menuSetting : MonoBehaviour
     [SerializeField]
     [Tooltip("키보드 상단의 인풋필드")]
     public TMPro.TMP_InputField KeyText; //키보드가 쓴 글씨 담는 그릇
-    [SerializeField]
     [Tooltip("레이로 쏜 인풋필드 적용 대상, 미리 채워두지 말것")]
     private InputField Selected; //키보드에 있는 내용을 옮길 그릇
 
@@ -43,18 +48,13 @@ public class menuSetting : MonoBehaviour
     [Tooltip("키보드를 띄우기 위한 버튼, Left Touch 기준")]
     public OVRInput.Button KeyboardButton;
 
-
-    [Tooltip("왼손 이모지 칸")]
-    public GameObject EmojiCanvas;
+    [Tooltip("왼손 윗 칸")]
+    public GameObject canvasLU;
     [Tooltip("왼손 설정 칸")]
-    public GameObject SettingCanvas;
-
-    [SerializeField]
-    [Tooltip("채팅창")]
-    private InputField inputChat;
+    public GameObject canvasLL;
 
     public int FileCounter = 0;
-    
+
 
     private void Awake()
     {
@@ -75,7 +75,7 @@ public class menuSetting : MonoBehaviour
         }
         else
         {
-            print("LeftMenu is 'null'");
+            print("LeftMenu hand menu Canvs is 'null'");
             return;
         }
         //오른손 메뉴창 시작시 끄기, 없으면 알람
@@ -88,15 +88,15 @@ public class menuSetting : MonoBehaviour
         }
         else
         {
-            print("RightMenu is 'null'");
+            print("Right hand menu Canvs is 'null'");
             return;
         }
         //왼손 이모지 메뉴창 시작시 끄기, 없으면 알람
-        if (EmojiCanvas != null)
+        if (canvasLU != null)
         {
-            if (EmojiCanvas.activeSelf != false)
+            if (canvasLU.activeSelf != false)
             {
-                EmojiCanvas.SetActive(false);
+                canvasLU.SetActive(false);
             }
         }
         else
@@ -105,11 +105,11 @@ public class menuSetting : MonoBehaviour
             return;
         }
         //왼손 셋팅 메뉴창 시작시 끄기, 없으면 알람
-        if (SettingCanvas != null)
+        if (canvasLL != null)
         {
-            if (SettingCanvas.activeSelf != false)
+            if (canvasLL.activeSelf != false)
             {
-                SettingCanvas.SetActive(false);
+                canvasLL.SetActive(false);
             }
         }
         else
@@ -134,21 +134,31 @@ public class menuSetting : MonoBehaviour
     {
         if (OVRInput.GetDown(LeftMenuButton, OVRInput.Controller.LTouch))
         {
-            if(RrayTransform != null)
+            if (LeftMenu == null)
             {
-                CurrRay = RrayTransform;
-                CurrCont = OVRInput.Controller.RTouch;
+                return;
             }
+            else
+            {
+                if (!Disable_LeftMenu)
+                {
+                    if (RrayTransform != null)
+                    {
+                        CurrRay = RrayTransform;
+                        CurrCont = OVRInput.Controller.RTouch;
+                    }
 
-            if (LeftMenu.activeSelf != true)
-            {
-                LeftMenu.SetActive(true);
-                return;
-            }
-            else if (LeftMenu.activeSelf != false)
-            {
-                LeftMenu.SetActive(false);
-                return;
+                    if (LeftMenu.activeSelf != true)
+                    {
+                        LeftMenu.SetActive(true);
+                        return;
+                    }
+                    else if (LeftMenu.activeSelf != false)
+                    {
+                        LeftMenu.SetActive(false);
+                        return;
+                    }
+                }
             }
         }
     }
@@ -156,26 +166,36 @@ public class menuSetting : MonoBehaviour
     {
         if (OVRInput.GetDown(RightMenuButton, OVRInput.Controller.RTouch))
         {
-            if (RrayTransform != null)
-            {
-                CurrRay = LrayTransform;
-                CurrCont = OVRInput.Controller.LTouch;
-            }
-            
             if (RightMenu == null)
             {
                 return;
             }
+            else
+            {
+                if (!Disable_RightMenu)
+                {
+                    if (RrayTransform != null)
+                    {
+                        CurrRay = LrayTransform;
+                        CurrCont = OVRInput.Controller.LTouch;
+                    }
 
-            if (RightMenu.activeSelf != true)
-            {
-                RightMenu.SetActive(true);
-                return;
-            }
-            else if (RightMenu.activeSelf != false)
-            {
-                RightMenu.SetActive(false);
-                return;
+                    if (RightMenu == null)
+                    {
+                        return;
+                    }
+
+                    if (RightMenu.activeSelf != true)
+                    {
+                        RightMenu.SetActive(true);
+                        return;
+                    }
+                    else if (RightMenu.activeSelf != false)
+                    {
+                        RightMenu.SetActive(false);
+                        return;
+                    }
+                }
             }
         }
     }
@@ -184,35 +204,53 @@ public class menuSetting : MonoBehaviour
     {
         if (OVRInput.GetDown(KeyboardButton, OVRInput.Controller.LTouch))
         {
-            if (KeyBoard.activeSelf != true)
+            if (KeyBoard == null)
             {
-                KeyBoard.SetActive(true);
-                Mallet1.SetActive(true);
-                Mallet2.SetActive(true);
                 return;
             }
-            if (KeyBoard.activeSelf != false)
+            else
             {
-                KeyBoard.SetActive(false);
-                Mallet1.SetActive(false);
-                Mallet2.SetActive(false);
-                return;
+                if (!Disable_Keyboard)
+                {
+                    return;
+                }
+                else
+                {
+                    if (KeyBoard.activeSelf != true)
+                    {
+                        KeyBoard.SetActive(true);
+                        Mallet1.SetActive(true);
+                        Mallet2.SetActive(true);
+                        return;
+                    }
+                    if (KeyBoard.activeSelf != false)
+                    {
+                        KeyBoard.SetActive(false);
+                        Mallet1.SetActive(false);
+                        Mallet2.SetActive(false);
+                        return;
+                    }
+                }
             }
         }
     }
 
     public void LMenu_Up() //Emoji
     {
-        if (EmojiCanvas != null)
+        if (canvasLU != null)
         {
-            if (EmojiCanvas.activeSelf != true)
+            if (canvasLU.activeSelf != true)
             {
-                EmojiCanvas.SetActive(true);
+                canvasLU.SetActive(true);
+                if (canvasLL.activeSelf)
+                {
+                    canvasLL.SetActive(false);
+                }
                 return;
             }
-            if (EmojiCanvas.activeSelf != false)
+            if (canvasLU.activeSelf != false)
             {
-                EmojiCanvas.SetActive(false);
+                canvasLU.SetActive(false);
                 return;
             }
         }
@@ -224,27 +262,51 @@ public class menuSetting : MonoBehaviour
         Capture();
     }
 
-    public void LMenu_Down() //Quit
+    public void LMenu_Down()
     {
-        Application.Quit();
     }
 
     public void LMenu_Left() //Settings
     {
-        if (SettingCanvas != null)
+        if (canvasLL == null)
         {
-            if (SettingCanvas.activeSelf != true)
+            return;
+        }
+        else
+        {
+            if (canvasLL.activeSelf != true)
             {
-                SettingCanvas.SetActive(true);
+                canvasLL.SetActive(true);
+                if (canvasLU.activeSelf)
+                {
+                    canvasLU.SetActive(false);
+                }
                 return;
             }
-            if (SettingCanvas.activeSelf != false)
+            if (canvasLL.activeSelf != false)
             {
-                SettingCanvas.SetActive(false);
+                canvasLL.SetActive(false);
                 return;
             }
         }
-        else { return; }
+    }
+
+    public void RMenu_Up() //QuickConnect
+    {
+        ConnectionManager.instant.OnQuickConnect();
+    }
+
+    public void RMenu_Right() //
+    {
+    }
+
+    public void RMenu_Down() //Quit
+    {
+        Application.Quit();
+    }
+    
+    public void RMenu_Left() //
+    {
     }
 
     public void As_UseKeyboard()
@@ -271,7 +333,7 @@ public class menuSetting : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.transform.gameObject.CompareTag("inputField"))
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("inputField"))
             {
                 Debug.Log("인풋필드 발견");
                 if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, CurrCont))
@@ -292,17 +354,10 @@ public class menuSetting : MonoBehaviour
     public void SendMessage()
     {
         if (Selected == null) return;
-        else
-        {
-            KeyText.text = KeyText.text.Substring(0, KeyText.text.Length - 1);
-            Selected.text = KeyText.text;
-            return;
-        }
-    }
-    public void OnClickChat()
-    {
-        PlayerChat pc = gameObject.GetComponent<PlayerChat>();
-        pc.SetChatValue(inputChat.text);
+
+        KeyText.text = KeyText.text.Substring(0, KeyText.text.Length - 1);
+        Selected.text = KeyText.text;
+        return;
     }
 
     void Capture()

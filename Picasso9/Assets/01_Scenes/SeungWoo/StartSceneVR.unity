@@ -5486,7 +5486,7 @@ GameObject:
   - component: {fileID: 795901013}
   - component: {fileID: 795901015}
   m_Layer: 6
-  m_Name: Emoji Canvas
+  m_Name: Canvas LU
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5499,18 +5499,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795901011}
-  m_LocalRotation: {x: -0.11320323, y: 0, z: 0, w: 0.9935719}
-  m_LocalPosition: {x: 0, y: 0, z: -20}
+  m_LocalRotation: {x: -0.11320326, y: -0, z: -0, w: 0.99357194}
+  m_LocalPosition: {x: 0, y: 0, z: -20.000053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 220099109}
   - {fileID: 1197671127}
-  m_Father: {fileID: 8059180648217994149}
-  m_RootOrder: 1
+  m_Father: {fileID: 8059180649508371174}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -13, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 100}
+  m_AnchoredPosition: {x: 0, y: 149.9999}
   m_SizeDelta: {x: 100, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &795901013
@@ -7828,7 +7828,7 @@ GameObject:
   - component: {fileID: 1142790501}
   - component: {fileID: 1142790500}
   m_Layer: 6
-  m_Name: Setting Canvas
+  m_Name: Canvas LL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7841,18 +7841,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142790498}
-  m_LocalRotation: {x: -0.11320323, y: 0, z: 0, w: 0.9935719}
-  m_LocalPosition: {x: 0, y: 0, z: -20}
+  m_LocalRotation: {x: -0.11320326, y: -0, z: -0, w: 0.99357194}
+  m_LocalPosition: {x: 0, y: 0, z: -19.999933}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1477012107}
   - {fileID: 1988443928}
-  m_Father: {fileID: 8059180648004333970}
-  m_RootOrder: 1
+  m_Father: {fileID: 8059180649508371174}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -13, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: 160}
+  m_AnchoredPosition: {x: 0.000011444092, y: 160.00003}
   m_SizeDelta: {x: 200, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1971053207 &1142790500
@@ -8017,7 +8017,7 @@ GameObject:
   - component: {fileID: 1197671129}
   - component: {fileID: 1197671128}
   m_Layer: 6
-  m_Name: Image
+  m_Name: Bottom Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17734,22 +17734,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5354d0ff42db0e4a8296759d3bba769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Disable_LeftMenu: 0
+  Disable_RightMenu: 0
+  Disable_Keyboard: 0
   LeftMenu: {fileID: 8059180647789859446}
   RightMenu: {fileID: 8059180647916645456}
   KeyBoard: {fileID: 8059180647725422803}
   Mallet1: {fileID: 3616056954202669817}
   Mallet2: {fileID: 265273548510883342}
   KeyText: {fileID: 1281185659}
-  Selected: {fileID: 0}
   CenterEye: {fileID: 9172743551512045793}
   LrayTransform: {fileID: 9172743551513601771}
   RrayTransform: {fileID: 9172743551513596655}
   LeftMenuButton: 32768
   RightMenuButton: 32768
   KeyboardButton: 2
-  EmojiCanvas: {fileID: 795901011}
-  SettingCanvas: {fileID: 1142790498}
-  inputChat: {fileID: 0}
+  canvasLU: {fileID: 795901011}
+  canvasLL: {fileID: 1142790498}
   FileCounter: 0
 --- !u!114 &3413826528816338212
 MonoBehaviour:
@@ -24202,7 +24203,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8059180648107362162}
-  - {fileID: 1142790499}
   m_Father: {fileID: 8059180649508371174}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24956,7 +24956,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8059180647972235699}
-  - {fileID: 795901012}
   m_Father: {fileID: 8059180649508371174}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25640,6 +25639,8 @@ RectTransform:
   - {fileID: 8059180647832058486}
   - {fileID: 8059180648066124866}
   - {fileID: 8059180648004333970}
+  - {fileID: 795901012}
+  - {fileID: 1142790499}
   m_Father: {fileID: 8059180647789859337}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -33, z: -40}

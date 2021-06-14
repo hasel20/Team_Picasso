@@ -12,13 +12,15 @@ public class MovePC : MonoBehaviour
 
     [Tooltip("이동간 높이 값 고정")]
     public bool LockFly = false;
-    public bool UseMoving = false;
-    public bool UseRotate = false;
+    public bool DisableMoving = false;
+    public bool DisableRotate = false;
 
     void Update()
     {
-        if(UseMoving) Moving();
-        if(UseRotate) Rotate();
+        if (!DisableMoving) Moving();
+        else return;
+        if (DisableRotate) Rotate();
+        else LockRotate();
     }
 
     void Moving()
@@ -29,11 +31,17 @@ public class MovePC : MonoBehaviour
         dir = CenterEye.TransformDirection(dir);
         if (LockFly) { dir.y = 0; }
         transform.Translate(dir * MoveSpeed * Time.deltaTime);
+        return;
     }
     void Rotate()
     {
         Vector2 padRot = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
         Quaternion dir = new Quaternion(padRot.y, padRot.x, 0, 1);
-        ;
+        return;
+    }
+    void LockRotate()
+    {
+        gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+        return;
     }
 }

@@ -8,6 +8,7 @@ using Photon.Realtime;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
+    public static ConnectionManager instant;
     public string gameVersion = "1.0"; //게임 버전
     public InputField blankID; //닉네임
     public InputField blackPW; //패스워드
@@ -50,7 +51,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
     public void SandBox()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("GameScene1");
     }
 
     public override void OnConnected() //Name Server 접속 성공
