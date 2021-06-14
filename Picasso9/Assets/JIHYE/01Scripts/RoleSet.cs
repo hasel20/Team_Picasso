@@ -24,13 +24,15 @@ public class RoleSet : MonoBehaviourPun
     }
     public Role role = Role.answerer;
 
-    public int playerNumber;
+    //public int playerNumber;//플레이어 구분은 PhotonViewID로 구분하기떄ㅜㄴ에 별도의 인덱스 불필요하다, 
 
     void Start()
     {
         //playerNumber = GameManager.instance.AddPlayer(this.gameObject);
         GameManager.instance.AddPlayer(this.gameObject);
-        A_RoleAlim();
+        role = Role.answerer;
+        alim.text = "기다려 주세용";
+        alim.color = Color.black;
     }
 
     void Update()
@@ -45,7 +47,7 @@ public class RoleSet : MonoBehaviourPun
             }
             else//painter이면 채팅치면 안댐! 
             {
-                photonView.RPC("Keyonoff", RpcTarget.All, false);
+                photonView.RPC("Keyonoff", RpcTarget.All, false); // 문제내는 사람은 키보드 바로 꺼지게 만들기! 
             }
         }
 
@@ -67,7 +69,7 @@ public class RoleSet : MonoBehaviourPun
 
 
 
-    void KeybordSet()
+    void KeybordSet()//내꺼 일떄만 조종하는 함수,, 아니,,, 뭔지 모륵ㅆ다,
     {
         if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
         {
@@ -92,31 +94,31 @@ public class RoleSet : MonoBehaviourPun
         {
             int painterID = GameManager.instance.WhoPainter();
             int answerID = this.gameObject.GetComponent<PhotonView>().ViewID;
-            photonView.RPC("OKan",RpcTarget.All,painterID,answerID);
+            photonView.RPC("OKanswer", RpcTarget.All,painterID,answerID);
            //GameManager.instance.ResetTurn();
         }
     }
-
-    [PunRPC]
-    void OKan(int painterID,int answerID)
-    {
-        if (painterID != -10)
-        {
-            GameObject paints = GameManager.instance.GetPlayer(painterID);
-            GameObject answer = GameManager.instance.GetPlayer(answerID);
-
-            paints.GetComponent<PlayerScore>().AddScore(2);
-            answer.GetComponent<PlayerScore>().AddScore(1);
-
-            print("그림쟁이 : "+painterID +", 정답자 : " + answerID + "정답축하~ !");
-        }
-        else print("그램쟁이 업숴.");
-    }
-
     [PunRPC]
     void RpcTyping(string plz)
     {
         //모두에게 답을 알리는 함수 
         answer.text = plz;
     }
+
+    [PunRPC]//모두에게 득점자를 알려주는 함수
+    void OKanswer(int painterID,int answerID)
+    {
+        if (painterID != -10)
+        {
+            GameObject paints = GameManager.instance.GetPlayer(painterID);
+            GameObject answer = GameManager.instance.GetPlayer(answerID);
+
+            if(paints!=null) paints.GetComponent<PlayerScore>().AddScore(2);
+            if(answer != null) answer.GetComponent<PlayerScore>().AddScore(1);
+
+            print("그림쟁이 : " + painterID + ", 정답자 : " + answerID + "정답축하~ !");
+        }
+        else print("그램쟁이 업숴.");
+    }
+
 }
