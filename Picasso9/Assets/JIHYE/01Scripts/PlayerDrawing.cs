@@ -42,6 +42,7 @@ public class PlayerDrawing : MonoBehaviourPun
     //그림을 그릴수 있는 상태인지 확인 하는 bool
     public bool IsPainter = false;
 
+    public Animator anim;
 
     void Start()
     {
@@ -194,6 +195,7 @@ public class PlayerDrawing : MonoBehaviourPun
         {
             Vector3 color = new Vector3(lineColor.r, lineColor.g, lineColor.b);
             photonView.RPC("Start_Draw", RpcTarget.All, brush.transform.position, color, lineWidth);
+            photonView.RPC("RPCSetTrigger", RpcTarget.All, "Drawing");
         }
         else if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
@@ -202,7 +204,13 @@ public class PlayerDrawing : MonoBehaviourPun
         else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
             photonView.RPC("End_Draw", RpcTarget.All);
+            photonView.RPC("RPCSetTrigger", RpcTarget.All, "Idel");
         }
+    }
+    [PunRPC]
+    void RPCSetTrigger(string trigger)
+    {
+        anim.SetTrigger(trigger);
     }
 
     [PunRPC]
