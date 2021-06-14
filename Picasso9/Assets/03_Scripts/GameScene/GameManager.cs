@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviourPun
             rs = null;
         }
 
-        //ReSetLines();
+        ReSetLines();
 
         indexID = randoms ;
 
@@ -77,9 +77,15 @@ public class GameManager : MonoBehaviourPun
         count = 0;
         for (int i = 0; i < Lines.Count; i++)
         {
-            Destroy(Lines[i]);
+            Destroy(Lines[i].gameObject);
         }
         Lines.Clear();
+
+        //while (Lines.Count > 0)
+        //{
+        //    Destroy(Lines[0]);
+        //    Lines.RemoveAt(0);
+        //}
     }
 
     IEnumerator SettingRole()
