@@ -95,7 +95,7 @@ public class RoleSet : MonoBehaviourPun
             int painterID = GameManager.instance.WhoPainter();
             int answerID = this.gameObject.GetComponent<PhotonView>().ViewID;
             photonView.RPC("OKanswer", RpcTarget.All,painterID,answerID);
-           //GameManager.instance.ResetTurn();
+            GameManager.instance.ResetTurn();
         }
     }
     [PunRPC]
