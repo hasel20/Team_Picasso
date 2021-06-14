@@ -12,13 +12,13 @@ public class MovePC : MonoBehaviour
 
     [Tooltip("이동간 높이 값 고정")]
     public bool LockFly = false;
-    public bool LockMoving = false;
-    public bool LockRotate = false;
+    public bool UseMoving = false;
+    public bool UseRotate = false;
 
     void Update()
     {
-        if(LockMoving) Moving();
-        if(LockRotate) Rotate();
+        if(UseMoving) Moving();
+        if(UseRotate) Rotate();
     }
 
     void Moving()
