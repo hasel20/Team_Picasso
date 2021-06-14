@@ -42,17 +42,17 @@ MonoBehaviour:
   - Erase
   - Fire
   - Keyonoff
+  - OKan
   - Randoms
   - RespawnSpaceship
   - RpcFire
   - RpcFire2
   - RpcOnDamaged
+  - RPCResetTurn
   - RpcSetChatValue
   - RpcTyping
   - SetOff
   - Start_Draw
-  - OKan
-  - RPCResetTurn
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

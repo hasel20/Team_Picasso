@@ -83,7 +83,7 @@ public class RoleSet : MonoBehaviourPun
         malletR.SetActive(ke);        
     }
 
-    //키보드 센드누르면 지ㅣㄴ행하는 함수 ? 
+    //키보드 센드누르면 진행하는 함수 ? 
     public void Typing()
     {
         KeyText.text = KeyText.text.Substring(0, KeyText.text.Length - 1);
@@ -93,7 +93,7 @@ public class RoleSet : MonoBehaviourPun
             int painterID = GameManager.instance.WhoPainter();
             int answerID = this.gameObject.GetComponent<PhotonView>().ViewID;
             photonView.RPC("OKan",RpcTarget.All,painterID,answerID);
-            GameManager.instance.ResetTurn();
+           //GameManager.instance.ResetTurn();
         }
     }
 
