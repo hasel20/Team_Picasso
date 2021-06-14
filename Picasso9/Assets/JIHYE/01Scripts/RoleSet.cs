@@ -88,16 +88,35 @@ public class RoleSet : MonoBehaviourPun
     {
         KeyText.text = KeyText.text.Substring(0, KeyText.text.Length - 1);
         photonView.RPC("RpcTyping", RpcTarget.All, KeyText.text);
-        if (GameManager.instance.ChackAnswer(KeyText.text))
+        if (GameManager.instance.ChackAnswer(KeyText.text))//정답일때
         {
-            print("정답입니다~ !");
+            int painterID = GameManager.instance.WhoPainter();
+            int answerID = this.gameObject.GetComponent<PhotonView>().ViewID;
+            photonView.RPC("OKan",RpcTarget.All,painterID,answerID);
             GameManager.instance.ResetTurn();
         }
     }
 
     [PunRPC]
+    void OKan(int painterID,int answerID)
+    {
+        if (painterID != -10)
+        {
+            GameObject paints = GameManager.instance.GetPlayer(painterID);
+            GameObject answer = GameManager.instance.GetPlayer(answerID);
+
+            paints.GetComponent<PlayerScore>().AddScore(2);
+            answer.GetComponent<PlayerScore>().AddScore(1);
+
+            print("그림쟁이 : "+painterID +", 정답자 : " + answerID + "정답축하~ !");
+        }
+        else print("그램쟁이 업숴.");
+    }
+
+    [PunRPC]
     void RpcTyping(string plz)
     {
+        //모두에게 답을 알리는 함수 
         answer.text = plz;
     }
 }

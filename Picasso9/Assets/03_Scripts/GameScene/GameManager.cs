@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviourPun
    // public List<GameObject> player_rpc = new List<GameObject>();
     RoleSet rs;
 
+    int count;
     public List<LineInfo> Lines = new List<LineInfo>();
 
     //내 Player만 저장
@@ -74,21 +75,25 @@ public class GameManager : MonoBehaviourPun
         //nowQ = gameQuestion[Random.Range(0,gameQuestion.Count)];
         //photonView.RPC("nowQs", RpcTarget.All, gameQuestion[qindex]);
         rs.P_RoleAlim(nowQ);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(15);
         
         turnOver = true;
+        ReSetLines();
     }
 
-    //[PunRPC]
-    //void nowQs(string q)
-    //{
-    //    nowQ = q;
-    //}
+    
     //생성된 라인을 리스트업 하고 그 순번 알려주는 함수
+    //중간에 빠지면 리스트 카운트도 줄어들어서 별도 의 변수 를 놔준다.
     public int AddLine(LineInfo line)
     {
+        count++;
         Lines.Add(line);
-        return Lines.Count;
+        return count;
+    }
+    //
+    public void RemoveLine(LineInfo line)
+    {
+        Lines.Remove(line);
     }
 
     //라인 리스트에서 인덱스와 비교해서 원하는 라인 찾아주는 함수.
@@ -126,6 +131,19 @@ public class GameManager : MonoBehaviourPun
         }
         return null;
     }
+    public int WhoPainter()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            PhotonView pv = players[i].GetComponent<PhotonView>();
+            RoleSet rs = players[i].GetComponent<RoleSet>();
+            if (rs.role == RoleSet.Role.painter)
+            {
+                return pv.ViewID;
+            }
+        }
+        return -10;
+    }
 
 
     public bool ChackAnswer(string ans)
@@ -135,9 +153,25 @@ public class GameManager : MonoBehaviourPun
 
     public void ResetTurn()
     {
+        photonView.RPC("RPCResetTurn", RpcTarget.All);
+    }
+    [PunRPC]
+    void RPCResetTurn()
+    {
         StopCoroutine(SettingRole());
         rs.A_RoleAlim();
         rs = null;
         turnOver = true;
+        ReSetLines();
+    }
+
+    public void ReSetLines()
+    {
+        count = 0;
+        for (int i = 0; i < Lines.Count; i++)
+        {
+            Destroy(Lines[i]);
+        }
+        Lines.Clear();
     }
 }

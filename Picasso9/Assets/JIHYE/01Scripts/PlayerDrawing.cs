@@ -297,6 +297,7 @@ public class PlayerDrawing : MonoBehaviourPun
     void Erase(int lineindex)
     {
         GameObject lineobj = GameManager.instance.GetLine(lineindex);
+        GameManager.instance.RemoveLine(lineobj.GetComponent<LineInfo>());
         if (lineobj != null) Destroy(lineobj);
     }
 
