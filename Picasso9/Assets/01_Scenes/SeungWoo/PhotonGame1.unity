@@ -317,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f980f4cd76118034d9ab94bdcd0a0c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnTime: 100
   gameQuestion:
   - a
   - b

@@ -8,6 +8,7 @@ using Photon.Realtime;
 public class GameManager : MonoBehaviourPun
 {
     public static GameManager instance;
+    public float turnTime = 20;
 
     public List<string> gameQuestion;
      public string nowQ;
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviourPun
             rs = null;
         }
 
-        ReSetLines();
+        //ReSetLines();
 
         indexID = randoms ;
 
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviourPun
         rs = GetPlayer(indexID).GetComponent<RoleSet>();
         rs.role = RoleSet.Role.painter;
         rs.P_RoleAlim(nowQ);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(turnTime);
         
         turnOver = true;
     }
