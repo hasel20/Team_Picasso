@@ -333,7 +333,7 @@ public class menuSetting : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("inputField"))
+            if (hit.transform.gameObject.tag == "inputField")
             {
                 Debug.Log("인풋필드 발견");
                 if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, CurrCont))
