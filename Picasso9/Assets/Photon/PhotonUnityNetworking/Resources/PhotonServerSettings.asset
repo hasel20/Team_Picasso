@@ -54,6 +54,8 @@ MonoBehaviour:
   - SetOff
   - Start_Draw
   - OKanswer
+  - RPCSetTrigger
+  - RPCRoundEnd
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

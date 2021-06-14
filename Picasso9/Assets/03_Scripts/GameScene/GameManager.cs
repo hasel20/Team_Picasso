@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviourPun
     bool turnOver = true;
     int indexID;
 
+    //라운드종료 알림 
+    public Text roundEnd;
+
     private void Awake()
     {
         if (this != null) instance = this;
@@ -167,4 +170,32 @@ public class GameManager : MonoBehaviourPun
         turnOver = true;
     }
 
+    public void RoundEnd(int firstID)
+    {
+        //누군가 일정 접수 이상되면 
+        photonView.RPC("RPCRoundEnd",RpcTarget.All,firstID);
+
+    }
+
+    [PunRPC]
+    void RPCRoundEnd(int firstID)
+    {
+        //그사람의 이름을 칠판에 적어주고
+        if (firstID == Master.GetComponent<PhotonView>().ViewID)
+        {
+            roundEnd.text = "지난 라운드 우승자 는 나입니다!";
+        }
+        else
+        {
+            roundEnd.text = "지난 라운드 우승자 : " + firstID.ToString();
+        }
+
+        //모든 플레이어의 점수 를 0 점으로 만든다. 
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].GetComponent<PlayerScore>().score = 0;
+            players[i].GetComponent<PlayerScore>().ScoreTx.text = "0점" ;
+        }
+        
+    }
 }
