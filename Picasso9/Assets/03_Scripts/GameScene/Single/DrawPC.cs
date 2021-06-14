@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DrawPC : MonoBehaviour
 {
-    GameObject lhand_L;
-    GameObject rhand_R;
     public GameObject myHandL;
     public GameObject myHandR;
     //Hold_Brush();필요.
@@ -34,9 +32,6 @@ public class DrawPC : MonoBehaviour
     public int p_counts = 1000;
     public GameObject empty_obj;
 
-    //그림을 그릴수 있는 상태인지 확인 하는 bool
-    public bool IsPainter = false;
-
 
     void Start()
     {
@@ -44,7 +39,7 @@ public class DrawPC : MonoBehaviour
         for (int i = 0; i < p_counts; i++)
         {
             GameObject a = Instantiate(empty_obj);
-            a.transform.SetParent(lhand_L.transform);
+            a.transform.SetParent(myHandL.transform);
             e_obj.Add(a);
         }
         //=======인벤토리 비활성화
@@ -55,27 +50,24 @@ public class DrawPC : MonoBehaviour
         inventory[0].SetActive(true);
         //브러쉬 위치 지정해주기
         brush.SetActive(true);
-        brush.transform.position = rhand_R.transform.position + rhand_R.transform.forward * brushLength;
-        brush.transform.SetParent(rhand_R.transform);//처음부터 자식으루 뒀엉,
+        brush.transform.position = myHandR.transform.position + myHandR.transform.forward * brushLength;
+        brush.transform.SetParent(myHandR.transform);//처음부터 자식으루 뒀엉,
         brush.SetActive(false);
     }
 
     void Update()
     {
-        if (IsPainter)
-        {
-            //브러쉬를 쥐다.
-            Hold_Brush();
-            //팔레트등장 움직임에서 제어하긔 
-            Inventory_Active();
-            //그림을 그리다. 
-            DrawLine();
-            //그림을 지우다.
-            DeletLine();
-            //그림을 잡고 움직이다.
-            GrapLine();
-            Graping();
-        }
+        //브러쉬를 쥐다.
+        Hold_Brush();
+        //팔레트등장 움직임에서 제어하긔 
+        Inventory_Active();
+        //그림을 그리다. 
+        DrawLine();
+        //그림을 지우다.
+        DeletLine();
+        //그림을 잡고 움직이다.
+        GrapLine();
+        Graping();
     }
     void Hold_Brush()
     {
@@ -83,7 +75,7 @@ public class DrawPC : MonoBehaviour
         {
             //접촉 인식할 포인터의 
             brush.SetActive(true);
-            brush.transform.position = rhand_R.transform.position + rhand_R.transform.forward * brushLength;
+            brush.transform.position = myHandR.transform.position + myHandR.transform.forward * brushLength;
         }
         else if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch))
         {
@@ -250,14 +242,15 @@ public class DrawPC : MonoBehaviour
         if (!OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch))
         {
             //오른손의 구형태로 충돌되는 콜리더가 있으면 
-            Collider[] coll = Physics.OverlapSphere(rhand_R.transform.position, 0.1f);
-            if (coll.Length > 0 && coll[0].gameObject.CompareTag("Line"))
+            Collider[] coll = Physics.OverlapSphere(myHandR.transform.position, 0.1f);
+            GameObject aaa = coll[0].gameObject;
+            if (coll.Length > 0 && aaa.CompareTag("Line"))
             {
                 print("지울수 있는 선 있음");
                 if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch))
                 {
                     //라인 지워줌 Rpc로 전달~
-                    Erase(coll[0].GetComponent<LineInfo>().number);
+                    Erase(aaa.GetComponent<LineInfo>().number);
                 }
             }
         }
@@ -276,7 +269,7 @@ public class DrawPC : MonoBehaviour
         {
             if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
             {
-                Collider[] coll = Physics.OverlapSphere(lhand_L.transform.position, 0.1f);
+                Collider[] coll = Physics.OverlapSphere(myHandL.transform.position, 0.1f);
                 if (coll.Length > 0 && coll[0].gameObject.CompareTag("Line"))
                 {
                     print("선잡았다!");
@@ -320,7 +313,7 @@ public class DrawPC : MonoBehaviour
             else
             {
                 GameObject b = Instantiate(empty_obj);
-                b.transform.SetParent(lhand_L.transform);
+                b.transform.SetParent(myHandL.transform);
                 b.transform.position = ren.GetPosition(i);
                 u_obj.Add(b);
             }
