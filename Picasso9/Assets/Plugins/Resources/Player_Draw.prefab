@@ -1618,8 +1618,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alim: {fileID: 1753226575}
+  KeyText: {fileID: 0}
+  answer: {fileID: 0}
   keybord: {fileID: 4075881698333974999}
+  malletL: {fileID: 0}
+  malletR: {fileID: 0}
   role: 0
+  playerNumber: 0
 --- !u!1 &690524715577049307
 GameObject:
   m_ObjectHideFlags: 0
