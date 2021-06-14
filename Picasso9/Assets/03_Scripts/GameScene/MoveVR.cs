@@ -12,6 +12,10 @@ public class MoveVR : MonoBehaviourPun, IPunObservable
         public Quaternion rot;
     }
 
+    //È¸ÀüÃ¼
+    float rote;
+    public float rotAngle = 100;
+
     public Transform CenterEye;
     public float MoveSpeed;
 
@@ -58,7 +62,11 @@ public class MoveVR : MonoBehaviourPun, IPunObservable
                     syncData[i].rot, 0.2f);
             }
         }
-        Moving();
+        else
+        {
+            Moving();
+            Rotation();
+        }
     }
 
     void Moving()
@@ -75,6 +83,26 @@ public class MoveVR : MonoBehaviourPun, IPunObservable
     {
         Vector2 padRot = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
         Quaternion dir = new Quaternion(0, padRot.y, 0, 1);
+    }
+
+    void Rotation()
+    {
+        float a = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch).x;
+
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick, OVRInput.Controller.RTouch))
+        {
+            rote += a * rotAngle * Time.deltaTime;
+
+            transform.localEulerAngles = new Vector3(0, rote, 0);
+        }
+
+
+        //if (OVRInput.GetDown(OVRInput.RawButton.LThumbstickLeft, OVRInput.Controller.RTouch))
+        //{ 
+        //}
+        //else if (OVRInput.GetDown(OVRInput.RawButton.LThumbstickRight, OVRInput.Controller.RTouch))
+        //{ 
+        //}
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
