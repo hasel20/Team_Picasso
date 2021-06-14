@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviourPun
         }
     }
 
-    
+    Coroutine co;
     [PunRPC]
     void Randoms(int randoms,int aa)
     {
@@ -69,8 +69,9 @@ public class GameManager : MonoBehaviourPun
 
         nowQ = gameQuestion[aa];
 
-        StartCoroutine(SettingRole());
+        co = StartCoroutine(SettingRole());
     }
+
     public void ReSetLines()
     {
         count = 0;
@@ -89,6 +90,7 @@ public class GameManager : MonoBehaviourPun
         yield return new WaitForSeconds(turnTime);
         
         turnOver = true;
+        co = null;
     }
 
     
@@ -166,7 +168,10 @@ public class GameManager : MonoBehaviourPun
     [PunRPC]
     void RPCResetTurn()//모두들 턴 종료 하구 다음턴 가자 
     {
-        StopCoroutine(SettingRole());
+        if (co != null)
+        { 
+            StopCoroutine(co);
+        }
         turnOver = true;
     }
 

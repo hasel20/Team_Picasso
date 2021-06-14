@@ -195,7 +195,7 @@ public class PlayerDrawing : MonoBehaviourPun
         {
             Vector3 color = new Vector3(lineColor.r, lineColor.g, lineColor.b);
             photonView.RPC("Start_Draw", RpcTarget.All, brush.transform.position, color, lineWidth);
-            photonView.RPC("RPCSetTrigger", RpcTarget.All, "Drawing");
+            photonView.RPC("RPCSetTrigger", RpcTarget.Others, "Drawing");
         }
         else if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
@@ -204,7 +204,7 @@ public class PlayerDrawing : MonoBehaviourPun
         else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
             photonView.RPC("End_Draw", RpcTarget.All);
-            photonView.RPC("RPCSetTrigger", RpcTarget.All, "Idel");
+            photonView.RPC("RPCSetTrigger", RpcTarget.Others, "Idel");
         }
     }
     [PunRPC]
