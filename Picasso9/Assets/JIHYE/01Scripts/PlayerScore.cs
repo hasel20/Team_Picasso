@@ -8,6 +8,7 @@ using Photon.Realtime;
 public class PlayerScore : MonoBehaviourPun
 {
     public int score;
+    public Text ScoreTx;
     void Start()
     {
         
@@ -21,5 +22,7 @@ public class PlayerScore : MonoBehaviourPun
     public void AddScore(int add)
     {
         score += add;
+
+        ScoreTx.text = "현제 점수 : " + score.ToString();
     }
 }

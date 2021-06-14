@@ -23,8 +23,7 @@ public class GameManager : MonoBehaviourPun
     public GameObject Master;
 
     bool turnOver = true;
-    int index;
-    int qindex;
+    int indexID;
 
     private void Awake()
     {
@@ -42,7 +41,6 @@ public class GameManager : MonoBehaviourPun
             {
                 turnOver = false;
                 print("start turn");
-                //Randoms(Random.Range(0, players.Count));
                 int a = Random.Range(0, players.Count);
                 print(a);
                 photonView.RPC("Randoms", RpcTarget.All, 
@@ -61,24 +59,32 @@ public class GameManager : MonoBehaviourPun
             rs = null;
         }
 
-        index = randoms ;
+        ReSetLines();
+
+        indexID = randoms ;
 
         nowQ = gameQuestion[aa];
 
         StartCoroutine(SettingRole());
     }
+    public void ReSetLines()
+    {
+        count = 0;
+        for (int i = 0; i < Lines.Count; i++)
+        {
+            Destroy(Lines[i]);
+        }
+        Lines.Clear();
+    }
 
     IEnumerator SettingRole()
     {
-        rs = GetPlayer(index).GetComponent<RoleSet>();
+        rs = GetPlayer(indexID).GetComponent<RoleSet>();
         rs.role = RoleSet.Role.painter;
-        //nowQ = gameQuestion[Random.Range(0,gameQuestion.Count)];
-        //photonView.RPC("nowQs", RpcTarget.All, gameQuestion[qindex]);
         rs.P_RoleAlim(nowQ);
-        yield return new WaitForSeconds(15);
+        yield return new WaitForSeconds(2);
         
         turnOver = true;
-        ReSetLines();
     }
 
     
@@ -112,11 +118,9 @@ public class GameManager : MonoBehaviourPun
     //게임 시작 할떄 플레이어 리스트 만들긔 
     public void AddPlayer(GameObject person)
     {
-        //if (PhotonNetwork.IsMasterClient)
         {
             players.Add(person);
         }
-        //return players.Count;
     }
 
     public GameObject GetPlayer(int id)
@@ -156,22 +160,10 @@ public class GameManager : MonoBehaviourPun
         photonView.RPC("RPCResetTurn", RpcTarget.All);
     }
     [PunRPC]
-    void RPCResetTurn()
+    void RPCResetTurn()//모두들 턴 종료 하구 다음턴 가자 
     {
         StopCoroutine(SettingRole());
-        rs.A_RoleAlim();
-        rs = null;
         turnOver = true;
-        ReSetLines();
     }
 
-    public void ReSetLines()
-    {
-        count = 0;
-        for (int i = 0; i < Lines.Count; i++)
-        {
-            Destroy(Lines[i]);
-        }
-        Lines.Clear();
-    }
 }
