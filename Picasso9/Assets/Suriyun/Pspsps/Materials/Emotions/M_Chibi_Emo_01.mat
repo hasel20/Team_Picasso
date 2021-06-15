@@ -8,18 +8,27 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Chibi_Emo_01
-  m_Shader: {fileID: 10750, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHABLEND_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses:
   - SHADOWCASTER
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Albedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AlphaMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AlphaTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -48,6 +57,38 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LayerSurface0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerSurface1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerSurface2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerSurface3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerSurface4:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerSurface5:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerSurface6:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerSurface7:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 96e97575cd7fa6249803a2fbea1e6ba9, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -72,43 +113,150 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _RoughnessMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Surface:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Alpha: 1
     - _AlphaClip: 0
+    - _BaseMaskType: 0
     - _Blend: 0
+    - _BlendOp: 0
     - _BumpScale: 1
+    - _CameraFadingEnabled: 0
+    - _CameraFarFadeDistance: 2
+    - _CameraNearFadeDistance: 1
+    - _ColorMode: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DiffuseIntensity: 0.3
+    - _Dimmer: 1
+    - _DistortionBlend: 0.5
+    - _DistortionEnabled: 0
+    - _DistortionStrength: 1
+    - _DistortionStrengthScaled: 0
     - _DstBlend: 10
+    - _EmissionEnabled: 0
     - _EnableExternalAlpha: 0
     - _EnvironmentReflections: 1
+    - _FlipbookMode: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
+    - _LayerBlendMode0: 0
+    - _LayerBlendMode1: 0
+    - _LayerBlendMode2: 0
+    - _LayerBlendMode3: 0
+    - _LayerBlendMode4: 0
+    - _LayerBlendMode5: 0
+    - _LayerBlendMode6: 0
+    - _LayerBlendMode7: 0
+    - _LayerMaskType0: 0
+    - _LayerMaskType1: 0
+    - _LayerMaskType2: 0
+    - _LayerMaskType3: 0
+    - _LayerMaskType4: 0
+    - _LayerMaskType5: 0
+    - _LayerMaskType6: 0
+    - _LayerMaskType7: 0
+    - _LayerSampleMode0: 0
+    - _LayerSampleMode1: 0
+    - _LayerSampleMode2: 0
+    - _LayerSampleMode3: 0
+    - _LayerSampleMode4: 0
+    - _LayerSampleMode5: 0
+    - _LayerSampleMode6: 0
+    - _LayerSampleMode7: 0
+    - _LightingEnabled: 0
+    - _LipSmoothness: 0
     - _Metallic: 0
-    - _Mode: 3
+    - _MetallicMultiplier: 1
+    - _Mode: 2
+    - _MouthEffectDistance: 0.03
+    - _MouthEffectScale: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _PupilSize: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _ReflectionIntensity: 0
+    - _RimIntensity: 5
     - _Smoothness: 0.462
+    - _SmoothnessMultiplier: 1
     - _SmoothnessTextureChannel: 0
+    - _SoftParticlesEnabled: 0
+    - _SoftParticlesFarFadeDistance: 1
+    - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
     - _Surface: 1
     - _UVSec: 0
+    - _Voice: 0
     - _WorkflowMode: 1
     - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    - _BaseMaskAxis: {r: 0, g: 1, b: 0, a: 0}
+    - _BaseMaskParameters: {r: 0, g: 0, b: 0, a: 0}
+    - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 0.8627451, b: 0.8627451, a: 1}
+    - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _DarkMultiplier: {r: 0.6, g: 0.6, b: 0.6, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerColor1: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerColor2: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerColor3: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerColor4: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerColor5: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerColor6: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerColor7: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerMaskAxis0: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerMaskAxis1: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerMaskAxis2: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerMaskAxis3: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerMaskAxis4: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerMaskAxis5: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerMaskAxis6: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerMaskAxis7: {r: 0, g: 1, b: 0, a: 0}
+    - _LayerMaskParameters0: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerMaskParameters1: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerMaskParameters2: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerMaskParameters3: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerMaskParameters4: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerMaskParameters5: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerMaskParameters6: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerMaskParameters7: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerSampleParameters0: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerSampleParameters1: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerSampleParameters2: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerSampleParameters3: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerSampleParameters4: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerSampleParameters5: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerSampleParameters6: {r: 0, g: 0, b: 0, a: 0}
+    - _LayerSampleParameters7: {r: 0, g: 0, b: 0, a: 0}
+    - _MaskColorBrows: {r: 0, g: 0, b: 0, a: 1}
+    - _MaskColorGums: {r: 0, g: 0, b: 0, a: 1}
+    - _MaskColorIris: {r: 0, g: 0, b: 0, a: 1}
+    - _MaskColorLashes: {r: 0, g: 0, b: 0, a: 1}
+    - _MaskColorLips: {r: 0, g: 0, b: 0, a: 1}
+    - _MaskColorSclera: {r: 0, g: 0, b: 0, a: 1}
+    - _MaskColorTeeth: {r: 0, g: 0, b: 0, a: 1}
+    - _MouthDirection: {r: 0, g: 0, b: 0, a: 1}
+    - _MouthPosition: {r: 0, g: 0, b: 0, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5166510079454127617
