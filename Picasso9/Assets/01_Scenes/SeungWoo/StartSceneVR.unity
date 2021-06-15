@@ -18053,7 +18053,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3413826528816338208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.34}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9172743551513552701}
@@ -18117,6 +18117,7 @@ MonoBehaviour:
   Mallet1: {fileID: 3616056954202669817}
   Mallet2: {fileID: 265273548510883342}
   KeyText: {fileID: 1281185659}
+  Selected: {fileID: 164993599}
   CenterEye: {fileID: 9172743551512045793}
   LrayTransform: {fileID: 9172743551513601771}
   RrayTransform: {fileID: 9172743551513596655}
@@ -18169,6 +18170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1879bfc71f7f441bb2e23dff8723cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotAngle: 100
   CenterEye: {fileID: 9172743551513552699}
   MoveSpeed: 0
   myBody: {fileID: 0}
@@ -23566,7 +23568,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114326458267979190, guid: dad9a76513d6d2944aec5500facc1644, type: 3}
       propertyPath: OnConfirm.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MenuSetting, Assembly-CSharp
+      value: menuSetting, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 114326458267979190, guid: dad9a76513d6d2944aec5500facc1644, type: 3}
       propertyPath: OnConfirm.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName

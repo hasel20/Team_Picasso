@@ -40,6 +40,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         if (blankID.text.Length == 0)
         {
             Debug.LogWarning("아이디를 입력해 주세요");
+            Description.text = ("아이디를 입력해 주세요");
         }
         else
         {
@@ -72,6 +73,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         //base.OnConnectedToMaster();
         print("OnConnectedToMaster");
+        Description.text = ("OnConnectedToMaster");
 
         PhotonNetwork.NickName = blankID.text; //닉네임을 설정하고
         PhotonNetwork.JoinLobby(TypedLobby.Default); //로비로 접속요청
@@ -83,6 +85,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         //base.OnJoinedLobby();
         print("OnJoinedLobby");
+        Description.text = ("OnJoinedLobby");
 
         ConnectCanvas.SetActive(false);
         if (Selector != null) Selector.SetActive(false);
