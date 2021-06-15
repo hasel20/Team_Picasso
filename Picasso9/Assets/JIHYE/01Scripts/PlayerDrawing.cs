@@ -46,6 +46,7 @@ public class PlayerDrawing : MonoBehaviourPun
 
     void Start()
     {
+        IsPainter = true;
         //--나의 손인지 상대의 손인지에따라 위치 다시 지정해주긔
         if (photonView.IsMine)
         {
