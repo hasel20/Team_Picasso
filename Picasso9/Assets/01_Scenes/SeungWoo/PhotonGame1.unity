@@ -331,16 +331,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnTime: 100
   gameQuestion:
-  - a
-  - b
-  - c
-  - d
-  - e
-  - f
-  - g
-  - h
-  - i
-  - j
+  - apple
+  - bee
+  - cat
+  - bee
+  - eye
+  - fly
+  - mouse
+  - cafe
+  - phone
   nowQ: 
   players: []
   Lines: []

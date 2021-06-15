@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class GameManager : MonoBehaviourPun
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance;
     public float turnTime = 20;
@@ -194,11 +194,11 @@ public class GameManager : MonoBehaviourPun
         //그사람의 이름을 칠판에 적어주고
         if (firstID == Master.GetComponent<PhotonView>().ViewID)
         {
-            roundEnd.text = "지난 라운드 우승자 는 나입니다!";
+            roundEnd.text = "지난 우승자는 나야나!! ㅎㅎ ";
         }
         else
         {
-            roundEnd.text = "지난 라운드 우승자 : " + firstID.ToString();
+            roundEnd.text = "지난 라운드 우승자 : " + GetPlayer(firstID).GetComponent<PhotonView>().Owner.NickName;
         }
 
         //모든 플레이어의 점수 를 0 점으로 만든다. 
