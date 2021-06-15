@@ -1310,7 +1310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   ScoreTx: {fileID: 7368357598340667009}
-  round_end_score: 15
+  round_end_score: 5
 --- !u!1 &6244884849729631755
 GameObject:
   m_ObjectHideFlags: 0

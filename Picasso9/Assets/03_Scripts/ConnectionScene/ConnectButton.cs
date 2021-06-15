@@ -48,7 +48,7 @@ public class ConnectButton : MonoBehaviour
                 {
                     Debug.Log("인풋필드 선택");
                     Selected = hit.transform.GetComponent<InputField>();
-                    menuSetting.instant.As_UseKeyboard();
+                    //menuSetting.instant.As_UseKeyboard();
                     return;
                 }
                 else
